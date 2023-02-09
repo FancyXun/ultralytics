@@ -59,6 +59,7 @@ class YOLO:
         load_methods = {'.pt': self._load, '.yaml': self._new}
         suffix = Path(model).suffix
         if suffix in load_methods:
+            # 骚操作：学到了，通过字典获取方法
             {'.pt': self._load, '.yaml': self._new}[suffix](model)
         else:
             raise NotImplementedError(f"'{suffix}' model loading not implemented")
@@ -89,6 +90,7 @@ class YOLO:
         Args:
             weights (str): model checkpoint to be loaded
         """
+        # 本地模型如果没有，会自动去下载
         self.model, self.ckpt = attempt_load_one_weight(weights)
         self.ckpt_path = weights
         self.task = self.model.args["task"]

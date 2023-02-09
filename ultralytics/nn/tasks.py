@@ -330,7 +330,7 @@ def torch_safe_load(weight):
         The loaded PyTorch model.
     """
     from ultralytics.yolo.utils.downloads import attempt_download_asset
-
+    # 自动下载模型
     file = attempt_download_asset(weight)  # search online if missing locally
     try:
         return torch.load(file, map_location='cpu')  # load
