@@ -11,7 +11,7 @@ from ultralytics import YOLO
 from ultralytics.yolo.data.build import load_inference_source
 from ultralytics.yolo.utils import ROOT, SETTINGS
 
-MODEL = Path(SETTINGS['weights_dir']) / 'yolov8n.pt'
+MODEL = Path(SETTINGS['weights_dir']) / 'yolov8l.pt'
 CFG = 'yolov8n.yaml'
 SOURCE = ROOT / 'assets/bus.jpg'
 
