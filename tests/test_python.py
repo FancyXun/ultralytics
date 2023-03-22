@@ -1,13 +1,14 @@
 # Ultralytics YOLO 🚀, GPL-3.0 license
 
 from pathlib import Path
+from memory_profiler import profile
 
 import cv2
 import numpy as np
 import torch
 from PIL import Image
 
-from ultralytics import YOLO
+from ultralytics import YOLO, YOLO_CALL_GRAPH
 from ultralytics.yolo.data.build import load_inference_source
 from ultralytics.yolo.utils import ROOT, SETTINGS
 
@@ -42,7 +43,6 @@ def test_predict_dir():
 
 
 def test_predict_img():
-
     model = YOLO(MODEL)
     img = Image.open(str(SOURCE))
     output = model(source=img, save=True, verbose=True)  # PIL
@@ -145,7 +145,6 @@ def test_workflow():
 
 
 def test_predict_callback_and_setup():
-
     def on_predict_batch_end(predictor):
         # results -> List[batch_size]
         path, _, im0s, _, _ = predictor.batch
@@ -166,4 +165,11 @@ def test_predict_callback_and_setup():
         print(boxes)
 
 
-test_predict_img()
+# @profile
+def call_graph():
+    model = YOLO_CALL_GRAPH(MODEL)
+    img = Image.open(str(SOURCE))
+    model(source=img, save=True, verbose=True)  # PIL
+
+
+call_graph()
